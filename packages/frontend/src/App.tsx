@@ -1,38 +1,13 @@
 import { lazy, Suspense } from 'react'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
-import { WagmiProvider } from 'wagmi'
-import { createWeb3Modal } from '@web3modal/wagmi'
-import { wagmiConfig } from './config/wagmi'
 import { ErrorBoundary } from './components/ErrorBoundary'
+import { AppKitProvider } from './components/AppKitProvider'
 import Layout from './components/Layout'
-import { env, isAnalyticsEnabled } from './utils/env'
 
 // Lazy load routes for code splitting
 const Swap = lazy(() => import('./views/Swap'))
 const Liquidity = lazy(() => import('./views/Liquidity'))
 const Pools = lazy(() => import('./views/Pools'))
-
-// Create Web3Modal
-createWeb3Modal({
-  wagmiConfig,
-  projectId: env.VITE_WALLET_CONNECT_PROJECT_ID,
-  enableAnalytics: isAnalyticsEnabled,
-})
-
-// Configure React Query with error handling
-const queryClient = new QueryClient({
-  defaultOptions: {
-    queries: {
-      retry: 2,
-      refetchOnWindowFocus: false,
-      staleTime: 5 * 60 * 1000, // 5 minutes
-    },
-    mutations: {
-      retry: 1,
-    },
-  },
-})
 
 // Loading fallback component
 const LoadingFallback = () => (
@@ -47,22 +22,20 @@ const LoadingFallback = () => (
 function App() {
   return (
     <ErrorBoundary>
-      <WagmiProvider config={wagmiConfig}>
-        <QueryClientProvider client={queryClient}>
-          <BrowserRouter>
-            <Layout>
-              <Suspense fallback={<LoadingFallback />}>
-                <Routes>
-                  <Route path="/" element={<Swap />} />
-                  <Route path="/swap" element={<Swap />} />
-                  <Route path="/liquidity" element={<Liquidity />} />
-                  <Route path="/pools" element={<Pools />} />
-                </Routes>
-              </Suspense>
-            </Layout>
-          </BrowserRouter>
-        </QueryClientProvider>
-      </WagmiProvider>
+      <AppKitProvider>
+        <BrowserRouter>
+          <Layout>
+            <Suspense fallback={<LoadingFallback />}>
+              <Routes>
+                <Route path="/" element={<Swap />} />
+                <Route path="/swap" element={<Swap />} />
+                <Route path="/liquidity" element={<Liquidity />} />
+                <Route path="/pools" element={<Pools />} />
+              </Routes>
+            </Suspense>
+          </Layout>
+        </BrowserRouter>
+      </AppKitProvider>
     </ErrorBoundary>
   )
 }

@@ -1,0 +1,79 @@
+{
+  "common": {
+    "connectWallet": "Connect Wallet",
+    "disconnect": "Disconnect",
+    "loading": "Loading...",
+    "error": "Error",
+    "success": "Success",
+    "confirm": "Confirm",
+    "cancel": "Cancel",
+    "close": "Close",
+    "refresh": "Refresh",
+    "search": "Search",
+    "select": "Select",
+    "viewDetails": "View Details",
+    "details": "Details"
+  },
+  "nav": {
+    "swap": "Swap",
+    "liquidity": "Liquidity",
+    "pools": "Pools"
+  },
+  "swap": {
+    "title": "Swap Tokens",
+    "from": "From",
+    "to": "To",
+    "amount": "Amount",
+    "selectToken": "Select token",
+    "swap": "Swap",
+    "connectWalletToSwap": "Please connect your wallet to swap tokens",
+    "processing": "Processing...",
+    "transactionSubmitted": "Transaction Submitted",
+    "viewOnBscScan": "View on BscScan",
+    "invalidAmount": "Invalid amount",
+    "tooManyAttempts": "Too many swap attempts. Please wait a moment.",
+    "invalidSwapParams": "Invalid swap parameters"
+  },
+  "liquidity": {
+    "title": "Manage Liquidity",
+    "addLiquidity": "Add Liquidity",
+    "removeLiquidity": "Remove Liquidity",
+    "tokenA": "Token A",
+    "tokenB": "Token B",
+    "amountA": "Amount A",
+    "amountB": "Amount B",
+    "liquidityAmount": "Liquidity Amount",
+    "add": "Add",
+    "remove": "Remove",
+    "connectWalletToManage": "Please connect your wallet to manage liquidity",
+    "invalidParameters": "Invalid parameters"
+  },
+  "pools": {
+    "title": "Liquidity Pools",
+    "showAllPools": "Show All Pools",
+    "showMyPools": "Show My Pools",
+    "searchByTokenPair": "Search by token pair...",
+    "noPoolsAvailable": "No pools available",
+    "noPoolsFound": "No pools found matching your search",
+    "noLiquidityPositions": "You don't have any liquidity positions",
+    "pool": "Pool",
+    "tokenAReserve": "Token A Reserve",
+    "tokenBReserve": "Token B Reserve",
+    "totalLiquidity": "Total Liquidity",
+    "fee": "Fee",
+    "actions": "Actions"
+  },
+  "errors": {
+    "pleaseConnectWallet": "Please connect your wallet",
+    "pleaseSelectBothTokens": "Please select both tokens",
+    "tokensMustBeDifferent": "Tokens must be different",
+    "pleaseEnterAmount": "Please enter an amount",
+    "invalidRecipientAddress": "Invalid recipient address",
+    "contractNotConfigured": "Contract not configured",
+    "swapFailed": "Swap failed. Please try again.",
+    "addLiquidityFailed": "Add liquidity failed. Please try again.",
+    "removeLiquidityFailed": "Remove liquidity failed. Please try again.",
+    "failedToFetchPools": "Failed to fetch pools"
+  }
+}
+

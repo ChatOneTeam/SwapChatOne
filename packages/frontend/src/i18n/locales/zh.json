@@ -1,0 +1,79 @@
+{
+  "common": {
+    "connectWallet": "连接钱包",
+    "disconnect": "断开连接",
+    "loading": "加载中...",
+    "error": "错误",
+    "success": "成功",
+    "confirm": "确认",
+    "cancel": "取消",
+    "close": "关闭",
+    "refresh": "刷新",
+    "search": "搜索",
+    "select": "选择",
+    "viewDetails": "查看详情",
+    "details": "详情"
+  },
+  "nav": {
+    "swap": "交换",
+    "liquidity": "流动性",
+    "pools": "池子"
+  },
+  "swap": {
+    "title": "交换代币",
+    "from": "从",
+    "to": "到",
+    "amount": "数量",
+    "selectToken": "选择代币",
+    "swap": "交换",
+    "connectWalletToSwap": "请连接钱包以交换代币",
+    "processing": "处理中...",
+    "transactionSubmitted": "交易已提交",
+    "viewOnBscScan": "在 BscScan 上查看",
+    "invalidAmount": "无效数量",
+    "tooManyAttempts": "尝试次数过多，请稍候",
+    "invalidSwapParams": "无效的交换参数"
+  },
+  "liquidity": {
+    "title": "管理流动性",
+    "addLiquidity": "添加流动性",
+    "removeLiquidity": "移除流动性",
+    "tokenA": "代币 A",
+    "tokenB": "代币 B",
+    "amountA": "数量 A",
+    "amountB": "数量 B",
+    "liquidityAmount": "流动性数量",
+    "add": "添加",
+    "remove": "移除",
+    "connectWalletToManage": "请连接钱包以管理流动性",
+    "invalidParameters": "无效参数"
+  },
+  "pools": {
+    "title": "流动性池",
+    "showAllPools": "显示所有池",
+    "showMyPools": "显示我的池",
+    "searchByTokenPair": "按代币对搜索...",
+    "noPoolsAvailable": "没有可用的池",
+    "noPoolsFound": "未找到匹配的池",
+    "noLiquidityPositions": "您没有任何流动性头寸",
+    "pool": "池",
+    "tokenAReserve": "代币 A 储备",
+    "tokenBReserve": "代币 B 储备",
+    "totalLiquidity": "总流动性",
+    "fee": "手续费",
+    "actions": "操作"
+  },
+  "errors": {
+    "pleaseConnectWallet": "请连接钱包",
+    "pleaseSelectBothTokens": "请选择两个代币",
+    "tokensMustBeDifferent": "代币必须不同",
+    "pleaseEnterAmount": "请输入数量",
+    "invalidRecipientAddress": "无效的接收地址",
+    "contractNotConfigured": "合约未配置",
+    "swapFailed": "交换失败，请重试",
+    "addLiquidityFailed": "添加流动性失败，请重试",
+    "removeLiquidityFailed": "移除流动性失败，请重试",
+    "failedToFetchPools": "获取池列表失败"
+  }
+}
+

@@ -1,23 +1,27 @@
 import { useState, useCallback, useMemo } from 'react'
 import { useAccount } from 'wagmi'
+import { useTranslation } from 'react-i18next'
 import { useLiquidity } from '@/hooks/useLiquidity'
 import { useSecurity } from '@/hooks/useSecurity'
 import { validateTokenAmount } from '@/utils/security'
 import { formatErrorMessage } from '@/utils/errors'
 import { formatTokenAmount } from '@/utils/format'
 import Loading from '@/components/Loading'
+import TokenSelect, { type Token } from '@/components/TokenSelect'
+import NumberInput from '@/components/NumberInput'
 
 // Token list - in production, this would come from a token registry
-const TOKENS = [
+const TOKENS: Token[] = [
   { symbol: 'BNB', address: '0x0000000000000000000000000000000000000000', decimals: 18 },
   { symbol: 'BUSD', address: '0xe9e7CEA3DedcA5984780Bafc599bD69ADd087D56', decimals: 18 },
   { symbol: 'USDT', address: '0x55d398326f99059fF775485246999027B3197955', decimals: 18 },
-] as const
+]
 
 type TabType = 'add' | 'remove'
 
 export default function Liquidity() {
   const { address, isConnected } = useAccount()
+  const { t } = useTranslation()
   const { addLiquidity, removeLiquidity, isLoading, error, txHash, validateAddLiquidityInput, validateRemoveLiquidityInput } = useLiquidity()
   const { secureAction, checkActionRateLimit } = useSecurity()
 
@@ -84,7 +88,7 @@ export default function Liquidity() {
     })
 
     if (!validation.isValid) {
-      setValidationError(validation.error || 'Invalid parameters')
+      setValidationError(validation.error || t('liquidity.invalidParameters'))
       return
     }
 
@@ -115,7 +119,7 @@ export default function Liquidity() {
     }
 
     if (!checkActionRateLimit('removeLiquidity', 5, 60000)) {
-      setValidationError('Too many attempts. Please wait a moment.')
+      setValidationError(t('swap.tooManyAttempts'))
       return
     }
 
@@ -129,7 +133,7 @@ export default function Liquidity() {
     })
 
     if (!validation.isValid) {
-      setValidationError(validation.error || 'Invalid parameters')
+      setValidationError(validation.error || t('liquidity.invalidParameters'))
       return
     }
 
@@ -185,62 +189,62 @@ export default function Liquidity() {
 
   return (
     <div className="max-w-2xl mx-auto">
-      <div className="bg-white rounded-lg shadow-lg p-6">
-        <h1 className="text-2xl font-bold mb-6">Manage Liquidity</h1>
+      <div className="glass-dark rounded-2xl shadow-glow-lg p-4 sm:p-6 border border-white/30">
+        <h1 className="text-xl sm:text-2xl font-bold mb-4 sm:mb-6 text-gradient-cyan">{t('liquidity.title')}</h1>
 
         {/* Tabs */}
-        <div className="flex space-x-4 mb-6 border-b">
+        <div className="flex space-x-2 sm:space-x-4 mb-4 sm:mb-6 border-b border-white/20 overflow-x-auto">
           <button
             onClick={() => {
               setActiveTab('add')
               setValidationError(null)
             }}
-            className={`px-4 py-2 font-medium ${
+            className={`px-3 sm:px-4 py-2 text-sm sm:text-base font-medium whitespace-nowrap transition-all duration-200 touch-manipulation ${
               activeTab === 'add'
-                ? 'border-b-2 border-blue-600 text-blue-600'
-                : 'text-gray-600 hover:text-gray-900'
+                ? 'border-b-2 border-primary-500 text-primary-600'
+                : 'text-slate-600 hover:text-primary-600 active:text-primary-700'
             }`}
           >
-            Add Liquidity
+            {t('liquidity.addLiquidity')}
           </button>
           <button
             onClick={() => {
               setActiveTab('remove')
               setValidationError(null)
             }}
-            className={`px-4 py-2 font-medium ${
+            className={`px-3 sm:px-4 py-2 text-sm sm:text-base font-medium whitespace-nowrap transition-all duration-200 touch-manipulation ${
               activeTab === 'remove'
-                ? 'border-b-2 border-blue-600 text-blue-600'
-                : 'text-gray-600 hover:text-gray-900'
+                ? 'border-b-2 border-primary-500 text-primary-600'
+                : 'text-slate-600 hover:text-primary-600 active:text-primary-700'
             }`}
           >
-            Remove Liquidity
+            {t('liquidity.removeLiquidity')}
           </button>
         </div>
 
         {!isConnected && (
-          <div className="mb-4 p-4 bg-yellow-50 border border-yellow-200 rounded-md">
-            <p className="text-yellow-800">Please connect your wallet to manage liquidity</p>
+          <div className="mb-4 p-3 sm:p-4 bg-yellow-50/80 border border-yellow-200/50 rounded-xl backdrop-blur-sm">
+            <p className="text-sm sm:text-base text-yellow-800">{t('liquidity.connectWalletToManage')}</p>
           </div>
         )}
 
         {(validationError || error) && (
-          <div className="mb-4 p-4 bg-red-50 border border-red-200 rounded-md">
-            <p className="text-red-800">{validationError || formatErrorMessage(error)}</p>
+          <div className="mb-4 p-3 sm:p-4 bg-red-50/80 border border-red-200/50 rounded-xl backdrop-blur-sm">
+            <p className="text-sm sm:text-base text-red-800 break-words">{validationError || formatErrorMessage(error)}</p>
           </div>
         )}
 
         {txHash && (
-          <div className="mb-4 p-4 bg-green-50 border border-green-200 rounded-md">
-            <p className="text-green-800">
-              Transaction submitted! Hash: {txHash.slice(0, 10)}...
+          <div className="mb-4 p-3 sm:p-4 bg-green-50/80 border border-green-200/50 rounded-xl backdrop-blur-sm">
+            <p className="text-sm sm:text-base text-green-800 break-words">
+              {t('swap.transactionSubmitted')}! Hash: {txHash.slice(0, 10)}...
               <a
                 href={`https://bscscan.com/tx/${txHash}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="ml-2 text-blue-600 hover:underline"
+                className="ml-2 text-primary-600 hover:text-primary-700 hover:underline transition-colors"
               >
-                View on BscScan
+                {t('swap.viewOnBscScan')}
               </a>
             </p>
           </div>
@@ -249,163 +253,124 @@ export default function Liquidity() {
         {activeTab === 'add' ? (
           <div className="space-y-4">
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                Token A
+              <label className="block text-sm font-medium text-slate-700 mb-2">
+                {t('liquidity.tokenA')}
               </label>
-              <select
+              <TokenSelect
+                tokens={TOKENS}
                 value={tokenA}
-                onChange={(e) => {
-                  setTokenA(e.target.value)
+                onChange={(value) => {
+                  setTokenA(value)
                   setValidationError(null)
                 }}
-                className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
-                disabled={!isConnected || isLoading}
-              >
-                <option value="">Select token</option>
-                {TOKENS.map((token) => (
-                  <option key={token.symbol} value={token.symbol}>
-                    {token.symbol}
-                  </option>
-                ))}
-              </select>
-            </div>
-
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                Amount A
-              </label>
-              <input
-                type="text"
-                inputMode="decimal"
-                value={amountA}
-                onChange={(e) => handleAmountAChange(e.target.value)}
-                placeholder="0.0"
-                className={`w-full px-4 py-2 border rounded-md focus:ring-blue-500 focus:border-blue-500 ${
-                  validationError ? 'border-red-300 bg-red-50' : 'border-gray-300'
-                }`}
+                placeholder={t('swap.selectToken')}
                 disabled={!isConnected || isLoading}
               />
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                Token B
-              </label>
-              <select
-                value={tokenB}
-                onChange={(e) => {
-                  setTokenB(e.target.value)
-                  setValidationError(null)
-                }}
-                className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
+              <NumberInput
+                value={amountA}
+                onChange={handleAmountAChange}
+                placeholder="0.0"
                 disabled={!isConnected || isLoading}
-              >
-                <option value="">Select token</option>
-                {TOKENS.map((token) => (
-                  <option key={token.symbol} value={token.symbol}>
-                    {token.symbol}
-                  </option>
-                ))}
-              </select>
+                maxDecimals={18}
+                error={!!validationError}
+                label={t('liquidity.amountA')}
+              />
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                Amount B
+              <label className="block text-sm font-medium text-slate-700 mb-2">
+                {t('liquidity.tokenB')}
               </label>
-              <input
-                type="text"
-                inputMode="decimal"
-                value={amountB}
-                onChange={(e) => handleAmountBChange(e.target.value)}
-                placeholder="0.0"
-                className={`w-full px-4 py-2 border rounded-md focus:ring-blue-500 focus:border-blue-500 ${
-                  validationError ? 'border-red-300 bg-red-50' : 'border-gray-300'
-                }`}
+              <TokenSelect
+                tokens={TOKENS}
+                value={tokenB}
+                onChange={(value) => {
+                  setTokenB(value)
+                  setValidationError(null)
+                }}
+                placeholder={t('swap.selectToken')}
                 disabled={!isConnected || isLoading}
+              />
+            </div>
+
+            <div>
+              <NumberInput
+                value={amountB}
+                onChange={handleAmountBChange}
+                placeholder="0.0"
+                disabled={!isConnected || isLoading}
+                maxDecimals={18}
+                error={!!validationError}
+                label={t('liquidity.amountB')}
               />
             </div>
 
             <button
               onClick={handleAddLiquidity}
               disabled={!canAddLiquidity || isLoading}
-              className="w-full py-3 bg-blue-600 text-white rounded-md hover:bg-blue-700 disabled:bg-gray-400 disabled:cursor-not-allowed transition-colors"
+              className="w-full py-4 sm:py-3 text-base sm:text-sm font-medium bg-gradient-tech text-white rounded-xl hover:shadow-glow disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 touch-manipulation transform hover:scale-[1.02] active:scale-[0.98]"
             >
-              Add Liquidity
+              {t('liquidity.add')} {t('liquidity.addLiquidity')}
             </button>
           </div>
         ) : (
           <div className="space-y-4">
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                Token A
+              <label className="block text-sm font-medium text-slate-700 mb-2">
+                {t('liquidity.tokenA')}
               </label>
-              <select
+              <TokenSelect
+                tokens={TOKENS}
                 value={tokenA}
-                onChange={(e) => {
-                  setTokenA(e.target.value)
+                onChange={(value) => {
+                  setTokenA(value)
                   setValidationError(null)
                 }}
-                className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
+                placeholder={t('swap.selectToken')}
                 disabled={!isConnected || isLoading}
-              >
-                <option value="">Select token</option>
-                {TOKENS.map((token) => (
-                  <option key={token.symbol} value={token.symbol}>
-                    {token.symbol}
-                  </option>
-                ))}
-              </select>
+              />
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                Token B
+              <label className="block text-sm font-medium text-slate-700 mb-2">
+                {t('liquidity.tokenB')}
               </label>
-              <select
+              <TokenSelect
+                tokens={TOKENS}
                 value={tokenB}
-                onChange={(e) => {
-                  setTokenB(e.target.value)
+                onChange={(value) => {
+                  setTokenB(value)
                   setValidationError(null)
                 }}
-                className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
+                placeholder={t('swap.selectToken')}
                 disabled={!isConnected || isLoading}
-              >
-                <option value="">Select token</option>
-                {TOKENS.map((token) => (
-                  <option key={token.symbol} value={token.symbol}>
-                    {token.symbol}
-                  </option>
-                ))}
-              </select>
+              />
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                Liquidity Amount
-              </label>
-              <input
-                type="text"
-                inputMode="decimal"
+              <NumberInput
                 value={liquidityAmount}
-                onChange={(e) => {
-                  setLiquidityAmount(e.target.value)
+                onChange={(value) => {
+                  setLiquidityAmount(value)
                   setValidationError(null)
                 }}
                 placeholder="0.0"
-                className={`w-full px-4 py-2 border rounded-md focus:ring-blue-500 focus:border-blue-500 ${
-                  validationError ? 'border-red-300 bg-red-50' : 'border-gray-300'
-                }`}
                 disabled={!isConnected || isLoading}
+                maxDecimals={18}
+                error={!!validationError}
+                label={t('liquidity.liquidityAmount')}
               />
             </div>
 
             <button
               onClick={handleRemoveLiquidity}
               disabled={!canRemoveLiquidity || isLoading}
-              className="w-full py-3 bg-red-600 text-white rounded-md hover:bg-red-700 disabled:bg-gray-400 disabled:cursor-not-allowed transition-colors"
+              className="w-full py-4 sm:py-3 text-base sm:text-sm font-medium bg-gradient-to-r from-red-500 to-pink-500 text-white rounded-xl hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 touch-manipulation transform hover:scale-[1.02] active:scale-[0.98]"
             >
-              Remove Liquidity
+              {t('liquidity.remove')} {t('liquidity.removeLiquidity')}
             </button>
           </div>
         )}

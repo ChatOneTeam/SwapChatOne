@@ -1,0 +1,561 @@
+{
+  "summary": {
+    "totalLogs": 81,
+    "errors": 0,
+    "warnings": 2,
+    "timestamp": "2025-11-13T17:04:14.640Z"
+  },
+  "logs": [
+    {
+      "timestamp": "2025-11-13T17:04:13.251Z",
+      "level": "info",
+      "message": "SECTION: 🔍 对账测试场景 - 收入验证",
+      "data": null
+    },
+    {
+      "timestamp": "2025-11-13T17:04:13.251Z",
+      "level": "info",
+      "message": "🌐 网络信息:",
+      "data": {
+        "networkName": "hardhat",
+        "chainId": "1337",
+        "isTestnet": false,
+        "isLocal": true
+      }
+    },
+    {
+      "timestamp": "2025-11-13T17:04:13.251Z",
+      "level": "info",
+      "message": "配置: 10 用户, 每个用户 50 笔交易",
+      "data": null
+    },
+    {
+      "timestamp": "2025-11-13T17:04:13.261Z",
+      "level": "info",
+      "message": "💰 账户信息:",
+      "data": {
+        "owner": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+        "balance": "10000.0 ETH",
+        "userCount": 10
+      }
+    },
+    {
+      "timestamp": "2025-11-13T17:04:13.261Z",
+      "level": "info",
+      "message": "SECTION: 步骤 1: 部署合约",
+      "data": null
+    },
+    {
+      "timestamp": "2025-11-13T17:04:13.288Z",
+      "level": "success",
+      "message": "所有合约部署完成",
+      "data": {
+        "vault": "0x5FbDB2315678afecb367f032d93F642f64180aa3",
+        "poolManager": "0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512",
+        "router": "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0"
+      }
+    },
+    {
+      "timestamp": "2025-11-13T17:04:13.288Z",
+      "level": "info",
+      "message": "SECTION: 步骤 2: 部署测试代币",
+      "data": null
+    },
+    {
+      "timestamp": "2025-11-13T17:04:13.296Z",
+      "level": "success",
+      "message": "测试代币部署完成",
+      "data": null
+    },
+    {
+      "timestamp": "2025-11-13T17:04:13.305Z",
+      "level": "success",
+      "message": "已向 10 个用户分发代币",
+      "data": null
+    },
+    {
+      "timestamp": "2025-11-13T17:04:13.306Z",
+      "level": "info",
+      "message": "SECTION: 步骤 3: 创建池子并初始化价格",
+      "data": null
+    },
+    {
+      "timestamp": "2025-11-13T17:04:13.307Z",
+      "level": "success",
+      "message": "池子创建成功",
+      "data": {
+        "poolKey": "0xe3dbd0faa08c2bd694388e8c79cd9fd14dedeeeb8ea6bcf2b668a506cfcff989"
+      }
+    },
+    {
+      "timestamp": "2025-11-13T17:04:13.307Z",
+      "level": "info",
+      "message": "使用价格比例: 1:1 (1)",
+      "data": null
+    },
+    {
+      "timestamp": "2025-11-13T17:04:13.310Z",
+      "level": "success",
+      "message": "初始流动性添加成功",
+      "data": {
+        "reserve0": "100000.0",
+        "reserve1": "100000.0"
+      }
+    },
+    {
+      "timestamp": "2025-11-13T17:04:13.311Z",
+      "level": "info",
+      "message": "SECTION: 步骤 4: 执行多用户随机交易",
+      "data": null
+    },
+    {
+      "timestamp": "2025-11-13T17:04:13.311Z",
+      "level": "info",
+      "message": "生成 500 笔随机交易",
+      "data": null
+    },
+    {
+      "timestamp": "2025-11-13T17:04:13.343Z",
+      "level": "info",
+      "message": "已完成 10/500 笔交易",
+      "data": null
+    },
+    {
+      "timestamp": "2025-11-13T17:04:13.374Z",
+      "level": "info",
+      "message": "已完成 20/500 笔交易",
+      "data": null
+    },
+    {
+      "timestamp": "2025-11-13T17:04:13.404Z",
+      "level": "info",
+      "message": "已完成 30/500 笔交易",
+      "data": null
+    },
+    {
+      "timestamp": "2025-11-13T17:04:13.432Z",
+      "level": "info",
+      "message": "已完成 40/500 笔交易",
+      "data": null
+    },
+    {
+      "timestamp": "2025-11-13T17:04:13.461Z",
+      "level": "info",
+      "message": "已完成 50/500 笔交易",
+      "data": null
+    },
+    {
+      "timestamp": "2025-11-13T17:04:13.488Z",
+      "level": "info",
+      "message": "已完成 60/500 笔交易",
+      "data": null
+    },
+    {
+      "timestamp": "2025-11-13T17:04:13.515Z",
+      "level": "info",
+      "message": "已完成 70/500 笔交易",
+      "data": null
+    },
+    {
+      "timestamp": "2025-11-13T17:04:13.542Z",
+      "level": "info",
+      "message": "已完成 80/500 笔交易",
+      "data": null
+    },
+    {
+      "timestamp": "2025-11-13T17:04:13.570Z",
+      "level": "info",
+      "message": "已完成 90/500 笔交易",
+      "data": null
+    },
+    {
+      "timestamp": "2025-11-13T17:04:13.596Z",
+      "level": "info",
+      "message": "已完成 100/500 笔交易",
+      "data": null
+    },
+    {
+      "timestamp": "2025-11-13T17:04:13.622Z",
+      "level": "info",
+      "message": "已完成 110/500 笔交易",
+      "data": null
+    },
+    {
+      "timestamp": "2025-11-13T17:04:13.649Z",
+      "level": "info",
+      "message": "已完成 120/500 笔交易",
+      "data": null
+    },
+    {
+      "timestamp": "2025-11-13T17:04:13.676Z",
+      "level": "info",
+      "message": "已完成 130/500 笔交易",
+      "data": null
+    },
+    {
+      "timestamp": "2025-11-13T17:04:13.703Z",
+      "level": "info",
+      "message": "已完成 140/500 笔交易",
+      "data": null
+    },
+    {
+      "timestamp": "2025-11-13T17:04:13.729Z",
+      "level": "info",
+      "message": "已完成 150/500 笔交易",
+      "data": null
+    },
+    {
+      "timestamp": "2025-11-13T17:04:13.756Z",
+      "level": "info",
+      "message": "已完成 160/500 笔交易",
+      "data": null
+    },
+    {
+      "timestamp": "2025-11-13T17:04:13.783Z",
+      "level": "info",
+      "message": "已完成 170/500 笔交易",
+      "data": null
+    },
+    {
+      "timestamp": "2025-11-13T17:04:13.809Z",
+      "level": "info",
+      "message": "已完成 180/500 笔交易",
+      "data": null
+    },
+    {
+      "timestamp": "2025-11-13T17:04:13.835Z",
+      "level": "info",
+      "message": "已完成 190/500 笔交易",
+      "data": null
+    },
+    {
+      "timestamp": "2025-11-13T17:04:13.861Z",
+      "level": "info",
+      "message": "已完成 200/500 笔交易",
+      "data": null
+    },
+    {
+      "timestamp": "2025-11-13T17:04:13.885Z",
+      "level": "info",
+      "message": "已完成 210/500 笔交易",
+      "data": null
+    },
+    {
+      "timestamp": "2025-11-13T17:04:13.913Z",
+      "level": "info",
+      "message": "已完成 220/500 笔交易",
+      "data": null
+    },
+    {
+      "timestamp": "2025-11-13T17:04:13.938Z",
+      "level": "info",
+      "message": "已完成 230/500 笔交易",
+      "data": null
+    },
+    {
+      "timestamp": "2025-11-13T17:04:13.962Z",
+      "level": "info",
+      "message": "已完成 240/500 笔交易",
+      "data": null
+    },
+    {
+      "timestamp": "2025-11-13T17:04:13.987Z",
+      "level": "info",
+      "message": "已完成 250/500 笔交易",
+      "data": null
+    },
+    {
+      "timestamp": "2025-11-13T17:04:14.012Z",
+      "level": "info",
+      "message": "已完成 260/500 笔交易",
+      "data": null
+    },
+    {
+      "timestamp": "2025-11-13T17:04:14.037Z",
+      "level": "info",
+      "message": "已完成 270/500 笔交易",
+      "data": null
+    },
+    {
+      "timestamp": "2025-11-13T17:04:14.062Z",
+      "level": "info",
+      "message": "已完成 280/500 笔交易",
+      "data": null
+    },
+    {
+      "timestamp": "2025-11-13T17:04:14.087Z",
+      "level": "info",
+      "message": "已完成 290/500 笔交易",
+      "data": null
+    },
+    {
+      "timestamp": "2025-11-13T17:04:14.112Z",
+      "level": "info",
+      "message": "已完成 300/500 笔交易",
+      "data": null
+    },
+    {
+      "timestamp": "2025-11-13T17:04:14.138Z",
+      "level": "info",
+      "message": "已完成 310/500 笔交易",
+      "data": null
+    },
+    {
+      "timestamp": "2025-11-13T17:04:14.163Z",
+      "level": "info",
+      "message": "已完成 320/500 笔交易",
+      "data": null
+    },
+    {
+      "timestamp": "2025-11-13T17:04:14.189Z",
+      "level": "info",
+      "message": "已完成 330/500 笔交易",
+      "data": null
+    },
+    {
+      "timestamp": "2025-11-13T17:04:14.219Z",
+      "level": "info",
+      "message": "已完成 340/500 笔交易",
+      "data": null
+    },
+    {
+      "timestamp": "2025-11-13T17:04:14.245Z",
+      "level": "info",
+      "message": "已完成 350/500 笔交易",
+      "data": null
+    },
+    {
+      "timestamp": "2025-11-13T17:04:14.271Z",
+      "level": "info",
+      "message": "已完成 360/500 笔交易",
+      "data": null
+    },
+    {
+      "timestamp": "2025-11-13T17:04:14.295Z",
+      "level": "info",
+      "message": "已完成 370/500 笔交易",
+      "data": null
+    },
+    {
+      "timestamp": "2025-11-13T17:04:14.320Z",
+      "level": "info",
+      "message": "已完成 380/500 笔交易",
+      "data": null
+    },
+    {
+      "timestamp": "2025-11-13T17:04:14.321Z",
+      "level": "warning",
+      "message": "交易 381 调整金额: 余额不足",
+      "data": {
+        "original": "6916.039871093442347008",
+        "adjusted": "866.058934527533498809",
+        "balance": "962.287705030592776455"
+      }
+    },
+    {
+      "timestamp": "2025-11-13T17:04:14.346Z",
+      "level": "info",
+      "message": "已完成 390/500 笔交易",
+      "data": null
+    },
+    {
+      "timestamp": "2025-11-13T17:04:14.371Z",
+      "level": "info",
+      "message": "已完成 400/500 笔交易",
+      "data": null
+    },
+    {
+      "timestamp": "2025-11-13T17:04:14.396Z",
+      "level": "info",
+      "message": "已完成 410/500 笔交易",
+      "data": null
+    },
+    {
+      "timestamp": "2025-11-13T17:04:14.422Z",
+      "level": "info",
+      "message": "已完成 420/500 笔交易",
+      "data": null
+    },
+    {
+      "timestamp": "2025-11-13T17:04:14.452Z",
+      "level": "info",
+      "message": "已完成 430/500 笔交易",
+      "data": null
+    },
+    {
+      "timestamp": "2025-11-13T17:04:14.479Z",
+      "level": "info",
+      "message": "已完成 440/500 笔交易",
+      "data": null
+    },
+    {
+      "timestamp": "2025-11-13T17:04:14.499Z",
+      "level": "warning",
+      "message": "交易 449 调整金额: 余额不足",
+      "data": {
+        "original": "8874.831813267729416192",
+        "adjusted": "1844.142264795557297998",
+        "balance": "2049.046960883952553332"
+      }
+    },
+    {
+      "timestamp": "2025-11-13T17:04:14.504Z",
+      "level": "info",
+      "message": "已完成 450/500 笔交易",
+      "data": null
+    },
+    {
+      "timestamp": "2025-11-13T17:04:14.529Z",
+      "level": "info",
+      "message": "已完成 460/500 笔交易",
+      "data": null
+    },
+    {
+      "timestamp": "2025-11-13T17:04:14.555Z",
+      "level": "info",
+      "message": "已完成 470/500 笔交易",
+      "data": null
+    },
+    {
+      "timestamp": "2025-11-13T17:04:14.580Z",
+      "level": "info",
+      "message": "已完成 480/500 笔交易",
+      "data": null
+    },
+    {
+      "timestamp": "2025-11-13T17:04:14.606Z",
+      "level": "info",
+      "message": "已完成 490/500 笔交易",
+      "data": null
+    },
+    {
+      "timestamp": "2025-11-13T17:04:14.632Z",
+      "level": "info",
+      "message": "已完成 500/500 笔交易",
+      "data": null
+    },
+    {
+      "timestamp": "2025-11-13T17:04:14.632Z",
+      "level": "success",
+      "message": "所有交易完成",
+      "data": {
+        "totalSwaps": 500,
+        "totalSwapFees": {
+          "token0": "3562.056209265952747571",
+          "token1": "4407.065979953928016546"
+        },
+        "totalProtocolFees": {
+          "token0": "712.411241853190549424",
+          "token1": "881.413195990785603196"
+        }
+      }
+    },
+    {
+      "timestamp": "2025-11-13T17:04:14.632Z",
+      "level": "info",
+      "message": "SECTION: 步骤 5: 完整对账验证",
+      "data": null
+    },
+    {
+      "timestamp": "2025-11-13T17:04:14.633Z",
+      "level": "info",
+      "message": "🔍 优先级1: Vault总余额验证（核心验证）",
+      "data": null
+    },
+    {
+      "timestamp": "2025-11-13T17:04:14.633Z",
+      "level": "info",
+      "message": "🔍 优先级2: 资金完整性验证",
+      "data": null
+    },
+    {
+      "timestamp": "2025-11-13T17:04:14.633Z",
+      "level": "info",
+      "message": "🔍 优先级3: 总供应量验证",
+      "data": null
+    },
+    {
+      "timestamp": "2025-11-13T17:04:14.638Z",
+      "level": "info",
+      "message": "🔍 优先级4: LP储备量验证（仅供参考）",
+      "data": null
+    },
+    {
+      "timestamp": "2025-11-13T17:04:14.639Z",
+      "level": "info",
+      "message": "🔍 额外验证: 恒定乘积公式",
+      "data": null
+    },
+    {
+      "timestamp": "2025-11-13T17:04:14.639Z",
+      "level": "info",
+      "message": "🔍 费用收入验证",
+      "data": null
+    },
+    {
+      "timestamp": "2025-11-13T17:04:14.639Z",
+      "level": "info",
+      "message": "SECTION: 对账结果总结",
+      "data": null
+    },
+    {
+      "timestamp": "2025-11-13T17:04:14.639Z",
+      "level": "success",
+      "message": "✅ 所有对账检查通过！",
+      "data": null
+    },
+    {
+      "timestamp": "2025-11-13T17:04:14.639Z",
+      "level": "info",
+      "message": "SECTION: 费用收入详细验证",
+      "data": null
+    },
+    {
+      "timestamp": "2025-11-13T17:04:14.639Z",
+      "level": "info",
+      "message": "预期协议费用:",
+      "data": {
+        "token0": "712.411241853190549424",
+        "token1": "881.413195990785603196"
+      }
+    },
+    {
+      "timestamp": "2025-11-13T17:04:14.639Z",
+      "level": "info",
+      "message": "实际协议费用:",
+      "data": {
+        "token0": "712.411241853190549424",
+        "token1": "881.413195990785603196"
+      }
+    },
+    {
+      "timestamp": "2025-11-13T17:04:14.639Z",
+      "level": "success",
+      "message": "✅ 协议费用计算正确！",
+      "data": null
+    }
+  ],
+  "errors": [],
+  "warnings": [
+    {
+      "timestamp": "2025-11-13T17:04:14.321Z",
+      "level": "warning",
+      "message": "交易 381 调整金额: 余额不足",
+      "data": {
+        "original": "6916.039871093442347008",
+        "adjusted": "866.058934527533498809",
+        "balance": "962.287705030592776455"
+      }
+    },
+    {
+      "timestamp": "2025-11-13T17:04:14.499Z",
+      "level": "warning",
+      "message": "交易 449 调整金额: 余额不足",
+      "data": {
+        "original": "8874.831813267729416192",
+        "adjusted": "1844.142264795557297998",
+        "balance": "2049.046960883952553332"
+      }
+    }
+  ]
+}
