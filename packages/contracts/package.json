@@ -1,0 +1,49 @@
+{
+  "name": "@chatoneswap/contracts",
+  "version": "1.0.0",
+  "description": "ChatOneSwap Smart Contracts",
+  "main": "index.js",
+  "scripts": {
+    "compile": "hardhat compile",
+    "test": "hardhat test",
+    "test:coverage": "hardhat coverage",
+    "lint": "solhint 'contracts/**/*.sol'",
+    "lint:fix": "solhint 'contracts/**/*.sol' --fix",
+    "deploy:testnet": "hardhat run scripts/deploy.js --network bsc-testnet",
+    "deploy:mainnet": "hardhat run scripts/deploy.js --network bsc",
+    "verify": "hardhat verify --network",
+    "node": "hardhat node",
+    "clean": "hardhat clean",
+    "build": "hardhat compile"
+  },
+  "keywords": [
+    "defi",
+    "dex",
+    "amm",
+    "bsc",
+    "solidity"
+  ],
+  "author": "ChatOneSwap Team",
+  "license": "GPL-3.0",
+  "devDependencies": {
+    "@nomicfoundation/hardhat-chai-matchers": "^2.0.0",
+    "@nomicfoundation/hardhat-ethers": "^3.0.0",
+    "@nomicfoundation/hardhat-network-helpers": "^1.0.0",
+    "@nomicfoundation/hardhat-toolbox": "^4.0.0",
+    "@nomicfoundation/hardhat-verify": "^2.0.0",
+    "@typechain/ethers-v6": "^0.5.0",
+    "@typechain/hardhat": "^9.0.0",
+    "chai": "^4.3.0",
+    "ethers": "^6.9.0",
+    "hardhat": "^2.19.0",
+    "hardhat-gas-reporter": "^1.0.9",
+    "solidity-coverage": "^0.8.5",
+    "typechain": "^8.3.0"
+  },
+  "dependencies": {
+    "@openzeppelin/contracts": "^5.0.0",
+    "@pancakeswap/v3-core": "^1.0.0",
+    "dotenv": "^16.3.1"
+  }
+}
+

@@ -1,0 +1,35 @@
+{
+  "name": "chatoneswap-monorepo",
+  "version": "1.0.0",
+  "private": true,
+  "description": "ChatOneSwap - A decentralized exchange on BSC (Monorepo)",
+  "scripts": {
+    "build": "pnpm -r build",
+    "test": "pnpm -r test",
+    "lint": "pnpm -r lint",
+    "clean": "pnpm -r clean",
+    "contracts:compile": "pnpm --filter contracts compile",
+    "contracts:test": "pnpm --filter contracts test",
+    "contracts:deploy": "pnpm --filter contracts deploy",
+    "frontend:dev": "pnpm --filter frontend dev",
+    "frontend:build": "pnpm --filter frontend build",
+    "frontend:start": "pnpm --filter frontend start"
+  },
+  "keywords": [
+    "defi",
+    "dex",
+    "amm",
+    "bsc",
+    "monorepo"
+  ],
+  "author": "ChatOneSwap Team",
+  "license": "GPL-3.0",
+  "devDependencies": {
+    "prettier": "^3.2.5",
+    "typescript": "^5.3.3"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "pnpm": ">=8.0.0"
+  }
+}

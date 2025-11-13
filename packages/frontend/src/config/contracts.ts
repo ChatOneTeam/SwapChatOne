@@ -1,0 +1,21 @@
+// Contract addresses - will be updated after deployment
+export const CONTRACTS = {
+  // BSC Mainnet
+  56: {
+    VAULT: '0x0000000000000000000000000000000000000000',
+    POOL_MANAGER: '0x0000000000000000000000000000000000000000',
+    ROUTER: '0x0000000000000000000000000000000000000000',
+  },
+  // BSC Testnet
+  97: {
+    VAULT: '0x0000000000000000000000000000000000000000',
+    POOL_MANAGER: '0x0000000000000000000000000000000000000000',
+    ROUTER: '0x0000000000000000000000000000000000000000',
+  },
+} as const
+
+// ABI imports - will be generated from contracts
+export const VAULT_ABI = [] as const
+export const POOL_MANAGER_ABI = [] as const
+export const ROUTER_ABI = [] as const
+
