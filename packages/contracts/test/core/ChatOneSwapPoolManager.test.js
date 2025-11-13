@@ -22,6 +22,9 @@ describe("ChatOneSwapPoolManager", function () {
     poolManager = await ChatOneSwapPoolManager.deploy(await vault.getAddress());
     await poolManager.waitForDeployment();
 
+    // Set pool manager in vault (must be done by owner)
+    await vault.setPoolManager(await poolManager.getAddress());
+
     // Deploy mock tokens
     const MockERC20 = await ethers.getContractFactory("MockERC20");
     token0 = await MockERC20.deploy("Token0", "T0", ethers.parseEther("1000000"));
@@ -51,11 +54,11 @@ describe("ChatOneSwapPoolManager", function () {
       );
       await tx.wait();
 
+      const t0 = await token0.getAddress();
+      const t1 = await token1.getAddress();
+      const sortedTokens = t0 < t1 ? [t0, t1] : [t1, t0];
       const poolKey = ethers.keccak256(
-        ethers.AbiCoder.defaultAbiCoder().encode(
-          ["address", "address", "uint24"],
-          [await token0.getAddress(), await token1.getAddress(), fee]
-        )
+        ethers.solidityPacked(["address", "address", "uint24"], [sortedTokens[0], sortedTokens[1], fee])
       );
 
       expect(await poolManager.poolExists(poolKey)).to.be.true;

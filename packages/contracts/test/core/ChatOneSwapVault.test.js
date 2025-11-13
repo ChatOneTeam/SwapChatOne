@@ -43,7 +43,8 @@ describe("ChatOneSwapVault", function () {
 
     it("Should emit Deposit event", async function () {
       const amount = ethers.parseEther("100");
-      await token.approve(await vault.getAddress(), amount);
+      await token.transfer(user1.address, amount);
+      await token.connect(user1).approve(await vault.getAddress(), amount);
       await expect(vault.connect(user1).deposit(await token.getAddress(), amount))
         .to.emit(vault, "Deposit")
         .withArgs(await token.getAddress(), user1.address, amount);
