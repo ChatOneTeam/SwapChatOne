@@ -25,7 +25,20 @@ contract ChatOneSwapVault is Ownable, ReentrancyGuard {
     // Flash loan fee (in basis points, 1 = 0.01%)
     uint256 public flashLoanFee = 9; // 0.09%
 
+    // Authorized pool manager for swap operations
+    address public poolManager;
+
     constructor() Ownable(msg.sender) {}
+
+    /**
+     * @notice Set the pool manager address (only owner, can only be set once)
+     * @param _poolManager The pool manager address
+     */
+    function setPoolManager(address _poolManager) external onlyOwner {
+        require(_poolManager != address(0), "Invalid pool manager");
+        require(poolManager == address(0), "Pool manager already set");
+        poolManager = _poolManager;
+    }
 
     /**
      * @notice Deposit tokens into the vault
@@ -79,6 +92,27 @@ contract ChatOneSwapVault is Ownable, ReentrancyGuard {
     function setFlashLoanFee(uint256 newFee) external onlyOwner {
         require(newFee <= 1000, "Fee too high"); // Max 10%
         flashLoanFee = newFee;
+    }
+
+    /**
+     * @notice Transfer tokens for swap operations (only pool manager)
+     * @param token The token to transfer
+     * @param to The recipient address
+     * @param amount The amount to transfer
+     */
+    function swapTransfer(
+        address token,
+        address to,
+        uint256 amount
+    ) external nonReentrant {
+        require(msg.sender == poolManager, "Only pool manager");
+        require(token != address(0), "Invalid token");
+        require(to != address(0), "Invalid recipient");
+        require(amount > 0, "Invalid amount");
+        require(balances[token] >= amount, "Insufficient balance");
+
+        balances[token] -= amount;
+        IERC20(token).safeTransfer(to, amount);
     }
 
     /**

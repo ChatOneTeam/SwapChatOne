@@ -56,27 +56,35 @@ contract ChatOneSwapRouter is Ownable, ReentrancyGuard {
         require(recipient != address(0), "Invalid recipient");
         require(amountIn > 0, "Invalid amount");
 
-        // Transfer input tokens from user to vault
-        IERC20(tokenIn).safeTransferFrom(msg.sender, address(vault), amountIn);
+        // Verify pool exists
+        require(poolManager.poolExists(poolKey), "Pool does not exist");
 
-        // Calculate output amount (simplified - in production, use proper AMM formula)
+        // Transfer input tokens from user to router first
+        IERC20(tokenIn).safeTransferFrom(msg.sender, address(this), amountIn);
+        
+        // Then deposit to vault (router approves vault)
+        // Note: We use approve directly here since this is a trusted internal call
+        IERC20(tokenIn).approve(address(vault), amountIn);
+        vault.deposit(tokenIn, amountIn);
+
+        // Calculate output amount using constant product formula (x * y = k)
         uint256 amountOut = calculateAmountOut(poolKey, tokenIn, tokenOut, amountIn);
 
         require(amountOut >= amountOutMin, "Insufficient output amount");
 
-        // Note: In production, this should use proper vault accounting
-        // For now, we'll use a simplified approach where vault holds tokens
-        // The vault's withdraw function is onlyOwner, so we need owner to approve router
-        // This is a placeholder - proper implementation would use vault's accounting system
-        // For testing, we'll transfer directly from vault (requires vault to have tokens)
-        IERC20(tokenOut).safeTransferFrom(address(vault), recipient, amountOut);
+        // Update pool reserves after swap
+        poolManager.updateReservesAfterSwap(poolKey, tokenIn, amountIn, amountOut);
+
+        // Transfer output tokens from vault to recipient via pool manager
+        // Pool manager is authorized to call vault.swapTransfer
+        poolManager.executeSwapTransfer(tokenOut, recipient, amountOut);
 
         emit SwapExecuted(poolKey, tokenIn, tokenOut, amountIn, amountOut, recipient);
     }
 
     /**
-     * @notice Calculate output amount for a swap (simplified version)
-     * @dev In production, implement proper AMM formula (e.g., x * y = k)
+     * @notice Calculate output amount for a swap using constant product formula (x * y = k)
+     * @dev Implements the constant product AMM formula: (x + dx) * (y - dy) = x * y
      * @param poolKey The pool identifier
      * @param tokenIn The input token
      * @param tokenOut The output token
@@ -89,18 +97,31 @@ contract ChatOneSwapRouter is Ownable, ReentrancyGuard {
         address tokenOut,
         uint256 amountIn
     ) public view returns (uint256 amountOut) {
-        // Simplified calculation - in production, implement proper AMM math
-        // This is a placeholder that needs to be replaced with actual AMM logic
         (address t0, address t1, uint24 fee) = poolManager.getPool(poolKey);
         require(
             (tokenIn == t0 && tokenOut == t1) || (tokenIn == t1 && tokenOut == t0),
             "Invalid tokens for pool"
         );
 
-        // Placeholder: return 90% of input (this needs proper AMM implementation)
-        // In production, use constant product formula or concentrated liquidity math
-        uint256 feeAmount = (amountIn * fee) / 10000;
-        amountOut = amountIn - feeAmount;
+        // Get current reserves
+        (uint256 reserve0, uint256 reserve1) = poolManager.getReserves(poolKey);
+        (uint256 reserveIn, uint256 reserveOut) = tokenIn == t0
+            ? (reserve0, reserve1)
+            : (reserve1, reserve0);
+
+        require(reserveIn > 0 && reserveOut > 0, "Insufficient liquidity");
+
+        // Calculate fee (fee is in basis points, 3000 = 0.3%)
+        uint256 amountInWithFee = amountIn * (1000000 - fee);
+        
+        // Constant product formula: (x + dx) * (y - dy) = x * y
+        // Solving for dy: dy = (y * dx) / (x + dx)
+        // With fee: dy = (y * dx * (1 - fee)) / (x + dx * (1 - fee))
+        uint256 numerator = amountInWithFee * reserveOut;
+        uint256 denominator = (reserveIn * 1000000) + amountInWithFee;
+        amountOut = numerator / denominator;
+
+        require(amountOut > 0, "Insufficient output amount");
     }
 
     /**
@@ -118,6 +139,118 @@ contract ChatOneSwapRouter is Ownable, ReentrancyGuard {
         uint256 amountIn
     ) external view returns (uint256 amountOut) {
         return calculateAmountOut(poolKey, tokenIn, tokenOut, amountIn);
+    }
+
+    /**
+     * @notice Add liquidity to a pool
+     * @param poolKey The pool identifier
+     * @param token0 First token address
+     * @param token1 Second token address
+     * @param amount0Desired Desired amount of token0
+     * @param amount1Desired Desired amount of token1
+     * @param amount0Min Minimum amount of token0 (slippage protection)
+     * @param amount1Min Minimum amount of token1 (slippage protection)
+     * @param to Address to receive liquidity tokens
+     * @return amount0 Actual amount of token0 added
+     * @return amount1 Actual amount of token1 added
+     * @return liquidity Amount of liquidity tokens minted
+     */
+    function addLiquidity(
+        bytes32 poolKey,
+        address token0,
+        address token1,
+        uint256 amount0Desired,
+        uint256 amount1Desired,
+        uint256 amount0Min,
+        uint256 amount1Min,
+        address to
+    ) external nonReentrant returns (
+        uint256 amount0,
+        uint256 amount1,
+        uint256 liquidity
+    ) {
+        require(to != address(0), "Invalid recipient");
+        
+        // Get current reserves
+        (uint256 reserve0, uint256 reserve1) = poolManager.getReserves(poolKey);
+        
+        uint256 amount0Optimal;
+        uint256 amount1Optimal;
+        
+        if (reserve0 == 0 && reserve1 == 0) {
+            // First liquidity provision - use desired amounts
+            amount0Optimal = amount0Desired;
+            amount1Optimal = amount1Desired;
+        } else {
+            // Calculate optimal amounts to maintain ratio
+            uint256 amount1OptimalCalc = (amount0Desired * reserve1) / reserve0;
+            if (amount1OptimalCalc <= amount1Desired) {
+                require(amount1OptimalCalc >= amount1Min, "Insufficient amount1");
+                amount0Optimal = amount0Desired;
+                amount1Optimal = amount1OptimalCalc;
+            } else {
+                uint256 amount0OptimalCalc = (amount1Desired * reserve0) / reserve1;
+                require(amount0OptimalCalc <= amount0Desired, "Insufficient amount0");
+                require(amount0OptimalCalc >= amount0Min, "Insufficient amount0");
+                amount0Optimal = amount0OptimalCalc;
+                amount1Optimal = amount1Desired;
+            }
+        }
+        
+        // Transfer tokens from user to router
+        if (amount0Optimal > 0) {
+            IERC20(token0).safeTransferFrom(msg.sender, address(this), amount0Optimal);
+            IERC20(token0).approve(address(vault), amount0Optimal);
+            vault.deposit(token0, amount0Optimal);
+        }
+        if (amount1Optimal > 0) {
+            IERC20(token1).safeTransferFrom(msg.sender, address(this), amount1Optimal);
+            IERC20(token1).approve(address(vault), amount1Optimal);
+            vault.deposit(token1, amount1Optimal);
+        }
+        
+        // Add liquidity to pool (provider is the user who initiated the transaction)
+        liquidity = poolManager.addLiquidity(poolKey, amount0Optimal, amount1Optimal, to);
+        
+        require(liquidity > 0, "Insufficient liquidity minted");
+        
+        amount0 = amount0Optimal;
+        amount1 = amount1Optimal;
+    }
+
+    /**
+     * @notice Remove liquidity from a pool
+     * @param poolKey The pool identifier
+     * @param token0 First token address
+     * @param token1 Second token address
+     * @param liquidity Amount of liquidity tokens to burn
+     * @param amount0Min Minimum amount of token0 (slippage protection)
+     * @param amount1Min Minimum amount of token1 (slippage protection)
+     * @param to Address to receive tokens
+     * @return amount0 Amount of token0 returned
+     * @return amount1 Amount of token1 returned
+     */
+    function removeLiquidity(
+        bytes32 poolKey,
+        address token0,
+        address token1,
+        uint256 liquidity,
+        uint256 amount0Min,
+        uint256 amount1Min,
+        address to
+    ) external nonReentrant returns (uint256 amount0, uint256 amount1) {
+        require(to != address(0), "Invalid recipient");
+        require(liquidity > 0, "Invalid liquidity");
+        
+        // Remove liquidity from pool (provider is the user who initiated the transaction)
+        (amount0, amount1) = poolManager.removeLiquidity(poolKey, liquidity, msg.sender);
+        
+        require(amount0 >= amount0Min, "Insufficient amount0");
+        require(amount1 >= amount1Min, "Insufficient amount1");
+        
+        // Transfer tokens from vault to recipient
+        poolManager.executeSwapTransfer(token0, to, amount0);
+        poolManager.executeSwapTransfer(token1, to, amount1);
     }
 }
 
