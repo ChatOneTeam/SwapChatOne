@@ -8,6 +8,7 @@
     "test": "pnpm -r test",
     "lint": "pnpm -r lint",
     "clean": "pnpm -r clean",
+    "contracts:node": "pnpm --filter contracts node",
     "contracts:compile": "pnpm --filter contracts compile",
     "contracts:test": "pnpm --filter contracts test",
     "contracts:deploy": "pnpm --filter contracts deploy",

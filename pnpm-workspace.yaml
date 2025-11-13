@@ -2,6 +2,7 @@ packages:
   - packages/*
 
 ignoredBuiltDependencies:
+  - '@reown/appkit'
   - bufferutil
   - esbuild
   - utf-8-validate
