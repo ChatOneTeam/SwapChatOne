@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  <url>
+    <loc>https://swap.chatone.info/</loc>
+    <changefreq>daily</changefreq>
+    <priority>1.0</priority>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://swap.chatone.info/?lang=zh" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://swap.chatone.info/?lang=en" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://swap.chatone.info/?lang=ko" />
+  </url>
+  <url>
+    <loc>https://swap.chatone.info/swap</loc>
+    <changefreq>daily</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://swap.chatone.info/swap?lang=zh" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://swap.chatone.info/swap?lang=en" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://swap.chatone.info/swap?lang=ko" />
+  </url>
+  <url>
+    <loc>https://swap.chatone.info/liquidity</loc>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://swap.chatone.info/liquidity?lang=zh" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://swap.chatone.info/liquidity?lang=en" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://swap.chatone.info/liquidity?lang=ko" />
+  </url>
+  <url>
+    <loc>https://swap.chatone.info/pools</loc>
+    <changefreq>hourly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://swap.chatone.info/pools?lang=zh" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://swap.chatone.info/pools?lang=en" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://swap.chatone.info/pools?lang=ko" />
+  </url>
+</urlset>
+

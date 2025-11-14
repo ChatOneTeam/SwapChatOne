@@ -2,6 +2,7 @@ import { lazy, Suspense } from 'react'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import { ErrorBoundary } from './components/ErrorBoundary'
 import { AppKitProvider } from './components/AppKitProvider'
+import { SEO } from './components/SEO'
 import Layout from './components/Layout'
 
 // Lazy load routes for code splitting
@@ -24,6 +25,7 @@ function App() {
     <ErrorBoundary>
       <AppKitProvider>
         <BrowserRouter>
+          <SEO />
           <Layout>
             <Suspense fallback={<LoadingFallback />}>
               <Routes>
