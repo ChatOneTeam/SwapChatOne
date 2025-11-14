@@ -35,11 +35,15 @@ describe('security utilities', () => {
 
   describe('isValidAddress', () => {
     it('should validate correct Ethereum addresses', () => {
-      expect(
-        isValidAddress('0x742d35Cc6634C0532925a3b844Bc9e7595f0bEb')
-      ).toBe(true)
+      // Valid address: 40 hex characters after 0x
       expect(
         isValidAddress('0x742d35Cc6634C0532925a3b844Bc9e7595f0bEb0')
+      ).toBe(true)
+      expect(
+        isValidAddress('0x0000000000000000000000000000000000000000')
+      ).toBe(true)
+      expect(
+        isValidAddress('0xFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF')
       ).toBe(true)
     })
 
@@ -132,7 +136,8 @@ describe('security utilities', () => {
   describe('checkRateLimit', () => {
     beforeEach(() => {
       // Clear rate limit store
-      ;(checkRateLimit as any).rateLimitStore?.clear()
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      (checkRateLimit as any).rateLimitStore?.clear()
     })
 
     it('should allow requests within limit', () => {

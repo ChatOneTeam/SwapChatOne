@@ -49,7 +49,7 @@ export default function Swap() {
       // For now, just show placeholder
       setAmountOut('0.0')
     },
-    []
+    [t]
   )
 
   // Swap tokens
@@ -106,6 +106,7 @@ export default function Swap() {
     validateSwapInput,
     secureAction,
     checkActionRateLimit,
+    t,
   ])
 
   // Swap button state

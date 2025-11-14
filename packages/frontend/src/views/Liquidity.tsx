@@ -5,7 +5,7 @@ import { useLiquidity } from '@/hooks/useLiquidity'
 import { useSecurity } from '@/hooks/useSecurity'
 import { validateTokenAmount } from '@/utils/security'
 import { formatErrorMessage } from '@/utils/errors'
-import { formatTokenAmount } from '@/utils/format'
+// import { formatTokenAmount } from '@/utils/format' // Reserved for future use
 import Loading from '@/components/Loading'
 import TokenSelect, { type Token } from '@/components/TokenSelect'
 import NumberInput from '@/components/NumberInput'
@@ -75,7 +75,7 @@ export default function Liquidity() {
     }
 
     if (!checkActionRateLimit('addLiquidity', 5, 60000)) {
-      setValidationError('Too many attempts. Please wait a moment.')
+      setValidationError(t('swap.tooManyAttempts'))
       return
     }
 
@@ -110,7 +110,7 @@ export default function Liquidity() {
     } catch (err) {
       setValidationError(formatErrorMessage(err))
     }
-  }, [isConnected, address, tokenA, tokenB, amountA, amountB, addLiquidity, validateAddLiquidityInput, secureAction, checkActionRateLimit])
+  }, [isConnected, address, tokenA, tokenB, amountA, amountB, addLiquidity, validateAddLiquidityInput, secureAction, checkActionRateLimit, t])
 
   // Remove liquidity
   const handleRemoveLiquidity = useCallback(async () => {
@@ -156,7 +156,7 @@ export default function Liquidity() {
     } catch (err) {
       setValidationError(formatErrorMessage(err))
     }
-  }, [isConnected, address, tokenA, tokenB, liquidityAmount, removeLiquidity, validateRemoveLiquidityInput, secureAction, checkActionRateLimit])
+  }, [isConnected, address, tokenA, tokenB, liquidityAmount, removeLiquidity, validateRemoveLiquidityInput, secureAction, checkActionRateLimit, t])
 
   const canAddLiquidity = useMemo(() => {
     return (

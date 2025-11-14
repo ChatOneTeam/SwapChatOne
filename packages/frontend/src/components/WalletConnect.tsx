@@ -69,11 +69,11 @@ function formatAddress(address: string, format: 'short' | 'full' = 'short'): str
  * 可以轻松移植到其他项目
  */
 export default function WalletConnect({
-  connectLabel = 'Connect Wallet',
+  connectLabel: _connectLabel = 'Connect Wallet',
   disconnectLabel = 'Disconnect',
   showAddress = true,
   addressFormat = 'short',
-  connectClassName = 'px-3 sm:px-4 py-2 text-sm sm:text-base bg-gradient-tech text-white rounded-xl hover:shadow-glow active:scale-95 transition-all duration-200 touch-manipulation',
+  connectClassName: _connectClassName = 'px-3 sm:px-4 py-2 text-sm sm:text-base bg-gradient-tech text-white rounded-xl hover:shadow-glow active:scale-95 transition-all duration-200 touch-manipulation',
   disconnectClassName = 'px-3 sm:px-4 py-2 text-sm sm:text-base bg-gradient-to-r from-red-500 to-pink-500 text-white rounded-xl hover:shadow-lg active:scale-95 transition-all duration-200 touch-manipulation',
   addressClassName = 'text-xs sm:text-sm text-gray-600 truncate max-w-[100px] sm:max-w-none',
   containerClassName = 'flex items-center space-x-2 sm:space-x-4',
@@ -115,7 +115,7 @@ export default function WalletConnect({
  * 只显示连接/断开按钮，不显示地址
  */
 export function WalletConnectButton({
-  connectLabel = 'Connect Wallet',
+  connectLabel: _connectLabel = 'Connect Wallet',
   disconnectLabel = 'Disconnect',
   className = 'px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors',
 }: {

@@ -27,7 +27,8 @@
       "@shared/*": ["../shared/src/*"]
     }
   },
-  "include": ["src"],
+  "include": ["src", "src/**/*.ts", "src/**/*.tsx"],
+  "types": ["vitest/globals", "@testing-library/jest-dom"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }
 

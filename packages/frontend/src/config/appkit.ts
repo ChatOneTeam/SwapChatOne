@@ -43,9 +43,12 @@ export function setupAppKit() {
   })
 
   // 创建 AppKit 实例
+   
   createAppKit({
-    adapters: [wagmiAdapter],
-    networks: supportedNetworks,
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    adapters: [wagmiAdapter as any], // Type assertion for compatibility with AppKit types
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    networks: supportedNetworks as any, // Type assertion for compatibility
     projectId: env.VITE_WALLET_CONNECT_PROJECT_ID,
     metadata: appMetadata,
     features: {
