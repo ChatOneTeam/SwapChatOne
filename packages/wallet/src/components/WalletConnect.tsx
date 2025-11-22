@@ -17,9 +17,9 @@
 
 import { useAccount, useDisconnect } from 'wagmi'
 
-interface WalletConnectProps {
+export interface WalletConnectProps {
   /**
-   * 连接按钮的文本
+   * 连接按钮的文本（未使用，因为使用 appkit-button）
    */
   connectLabel?: string
   /**
@@ -35,7 +35,7 @@ interface WalletConnectProps {
    */
   addressFormat?: 'short' | 'full'
   /**
-   * 自定义连接按钮样式类名
+   * 自定义连接按钮样式类名（未使用，因为使用 appkit-button）
    */
   connectClassName?: string
   /**
@@ -68,12 +68,10 @@ function formatAddress(address: string, format: 'short' | 'full' = 'short'): str
  * 这是一个封装的组件，使用 AppKit 的 web component <appkit-button>
  * 可以轻松移植到其他项目
  */
-export default function WalletConnect({
-  connectLabel: _connectLabel = 'Connect Wallet',
+export function WalletConnect({
   disconnectLabel = 'Disconnect',
   showAddress = true,
   addressFormat = 'short',
-  connectClassName: _connectClassName = 'px-3 sm:px-4 py-2 text-sm sm:text-base bg-gradient-tech text-white rounded-xl hover:shadow-glow active:scale-95 transition-all duration-200 touch-manipulation',
   disconnectClassName = 'px-3 sm:px-4 py-2 text-sm sm:text-base bg-gradient-to-r from-red-500 to-pink-500 text-white rounded-xl hover:shadow-lg active:scale-95 transition-all duration-200 touch-manipulation',
   addressClassName = 'text-xs sm:text-sm text-gray-600 truncate max-w-[100px] sm:max-w-none',
   containerClassName = 'flex items-center space-x-2 sm:space-x-4',
@@ -115,11 +113,9 @@ export default function WalletConnect({
  * 只显示连接/断开按钮，不显示地址
  */
 export function WalletConnectButton({
-  connectLabel: _connectLabel = 'Connect Wallet',
   disconnectLabel = 'Disconnect',
   className = 'px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors',
 }: {
-  connectLabel?: string
   disconnectLabel?: string
   className?: string
 }) {

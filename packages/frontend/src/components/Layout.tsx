@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
-import WalletConnect from './WalletConnect'
+import { WalletConnect } from '@chatoneswap/wallet'
 import LanguageSwitcher from './LanguageSwitcher'
 
 interface LayoutProps {

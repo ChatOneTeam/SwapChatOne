@@ -14,7 +14,9 @@
     "contracts:deploy": "pnpm --filter contracts deploy",
     "frontend:dev": "pnpm --filter frontend dev",
     "frontend:build": "pnpm --filter frontend build",
-    "frontend:start": "pnpm --filter frontend start"
+    "frontend:start": "pnpm --filter frontend start",
+    "wallet:build": "pnpm --filter wallet build",
+    "wallet:type-check": "pnpm --filter wallet type-check"
   },
   "keywords": [
     "defi",

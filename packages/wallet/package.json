@@ -1,0 +1,62 @@
+{
+  "name": "@chatoneswap/wallet",
+  "version": "1.0.0",
+  "description": "Reusable wallet connection package with AppKit and Wagmi",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    },
+    "./provider": {
+      "import": "./dist/provider.js",
+      "types": "./dist/provider.d.ts"
+    },
+    "./components": {
+      "import": "./dist/components.js",
+      "types": "./dist/components.d.ts"
+    },
+    "./config": {
+      "import": "./dist/config.js",
+      "types": "./dist/config.d.ts"
+    }
+  },
+  "scripts": {
+    "build": "tsc",
+    "type-check": "tsc --noEmit",
+    "clean": "rm -rf dist"
+  },
+  "keywords": [
+    "wallet",
+    "web3",
+    "appkit",
+    "wagmi",
+    "ethereum",
+    "react"
+  ],
+  "author": "ChatOneSwap Team",
+  "license": "GPL-3.0",
+  "peerDependencies": {
+    "@reown/appkit": "^1.8.13",
+    "@reown/appkit-adapter-wagmi": "^1.8.13",
+    "@tanstack/react-query": "^5.90.0",
+    "react": "^18.2.0 || ^19.0.0",
+    "react-dom": "^18.2.0 || ^19.0.0",
+    "wagmi": "^2.18.0",
+    "viem": "^2.38.0"
+  },
+  "devDependencies": {
+    "@reown/appkit": "^1.8.14",
+    "@reown/appkit-adapter-wagmi": "^1.8.14",
+    "@tanstack/react-query": "^5.90.10",
+    "@types/react": "^18.2.48",
+    "@types/react-dom": "^18.2.18",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "typescript": "^5.3.3",
+    "viem": "^2.38.1",
+    "wagmi": "^2.18.0"
+  }
+}
+
