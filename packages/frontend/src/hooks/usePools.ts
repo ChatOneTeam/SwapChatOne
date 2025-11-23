@@ -1,8 +1,11 @@
 import { useState, useCallback, useMemo } from 'react'
-import { useAccount, useReadContract } from 'wagmi'
-import { CONTRACTS, POOL_MANAGER_ABI } from '@/config/contracts'
+import { useAccount } from 'wagmi'
+import { CONTRACTS } from '@/config/contracts'
 import { useChainId } from 'wagmi'
 import { isValidAddress } from '@/utils/security'
+// TODO: Uncomment when implementing pool fetching
+// import { useReadContract } from 'wagmi'
+// import { POOL_MANAGER_ABI } from '@/config/contracts'
 
 export interface PoolInfo {
   tokenA: string

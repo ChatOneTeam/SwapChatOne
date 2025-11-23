@@ -3,7 +3,6 @@
  */
 
 interface Env {
-  VITE_WALLET_CONNECT_PROJECT_ID: string
   VITE_CHAIN_ID: string
   VITE_RPC_URL?: string
   VITE_ENABLE_ANALYTICS?: string
@@ -14,12 +13,28 @@ interface Env {
  * Validates required environment variables
  * @throws Error if required env vars are missing
  */
+function getEnvValue(key: keyof Env): string | undefined {
+  // Use explicit property access instead of dynamic key access
+  switch (key) {
+    case 'VITE_CHAIN_ID':
+      return import.meta.env.VITE_CHAIN_ID
+    case 'VITE_RPC_URL':
+      return import.meta.env.VITE_RPC_URL
+    case 'VITE_ENABLE_ANALYTICS':
+      return import.meta.env.VITE_ENABLE_ANALYTICS
+    case 'VITE_API_URL':
+      return import.meta.env.VITE_API_URL
+    default:
+      return undefined
+  }
+}
+
 function validateEnv(): void {
-  const required: (keyof Env)[] = ['VITE_WALLET_CONNECT_PROJECT_ID', 'VITE_CHAIN_ID']
+  const required: (keyof Env)[] = ['VITE_CHAIN_ID']
   const missing: string[] = []
 
   for (const key of required) {
-    if (!import.meta.env[key]) {
+    if (!getEnvValue(key)) {
       missing.push(key)
     }
   }
@@ -44,8 +59,6 @@ validateEnv()
  * Type-safe environment variable accessor
  */
 export const env: Env = {
-  VITE_WALLET_CONNECT_PROJECT_ID:
-    import.meta.env.VITE_WALLET_CONNECT_PROJECT_ID || '',
   VITE_CHAIN_ID: import.meta.env.VITE_CHAIN_ID || '56',
   VITE_RPC_URL: import.meta.env.VITE_RPC_URL,
   VITE_ENABLE_ANALYTICS: import.meta.env.VITE_ENABLE_ANALYTICS || 'false',

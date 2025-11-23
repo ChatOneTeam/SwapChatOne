@@ -55,19 +55,19 @@ export function validateTokenAmount(
   // Remove any whitespace
   const trimmed = amount.trim()
 
-  // Check for valid number format (allows decimals)
-  if (!/^\d*\.?\d*$/.test(trimmed)) {
-    return { isValid: false, value: trimmed, error: 'Invalid number format' }
-  }
-
-  // Check for negative numbers
+  // Check for negative numbers first (before format check)
   if (trimmed.startsWith('-')) {
     return { isValid: false, value: trimmed, error: 'Amount cannot be negative' }
   }
 
-  // Check for multiple decimal points
+  // Check for multiple decimal points (before format check to give specific error)
   if ((trimmed.match(/\./g) || []).length > 1) {
     return { isValid: false, value: trimmed, error: 'Invalid decimal format' }
+  }
+
+  // Check for valid number format (allows decimals, but not negative)
+  if (!/^\d*\.?\d*$/.test(trimmed)) {
+    return { isValid: false, value: trimmed, error: 'Invalid number format' }
   }
 
   // Check decimal precision

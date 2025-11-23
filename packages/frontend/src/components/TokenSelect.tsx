@@ -44,7 +44,7 @@ interface TokenSelectProps {
   /**
    * 是否显示搜索（暂未实现，可扩展）
    */
-  showSearch?: boolean
+  // showSearch?: boolean // Reserved for future use
 }
 
 /**
@@ -67,7 +67,6 @@ export default function TokenSelect({
   placeholder = 'Select token',
   disabled = false,
   className = '',
-  showSearch = false,
 }: TokenSelectProps) {
   const selectedToken = tokens.find((token) => token.symbol === value)
 
@@ -120,14 +119,14 @@ export default function TokenSelect({
                 {tokens.map((token) => (
                   <Listbox.Option
                     key={token.symbol}
-                    className={({ active }) =>
-                      `relative cursor-pointer select-none py-2.5 pl-3 pr-9 touch-manipulation transition-all duration-150 ${
-                        active ? 'bg-gradient-tech/10 text-primary-700' : 'text-slate-700'
-                      }`
-                    }
+            className={({ active: isActive }) =>
+              `relative cursor-pointer select-none py-2.5 pl-3 pr-9 touch-manipulation transition-all duration-150 ${
+                isActive ? 'bg-gradient-tech/10 text-primary-700' : 'text-slate-700'
+              }`
+            }
                     value={token.symbol}
                   >
-                    {({ selected, active }) => (
+                    {({ selected }) => (
                       <>
                         <div className="flex items-center">
                           {token.logoURI && (

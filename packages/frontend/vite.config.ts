@@ -24,17 +24,22 @@ export default defineConfig({
   },
   build: {
     outDir: 'dist',
-    sourcemap: true,
+    sourcemap: false, // 生产环境关闭 sourcemap 以提高安全性
     // Security: minimize in production (using esbuild, faster than terser)
     minify: 'esbuild',
     rollupOptions: {
       output: {
         manualChunks: {
           'react-vendor': ['react', 'react-dom', 'react-router-dom'],
-          'web3-vendor': ['wagmi', 'viem', '@web3modal/wagmi'],
+          'web3-vendor': ['wagmi', 'viem', '@reown/appkit', '@reown/appkit-adapter-wagmi'],
+          'i18n-vendor': ['i18next', 'react-i18next', 'i18next-browser-languagedetector'],
         },
       },
     },
+    // 生产环境优化
+    chunkSizeWarningLimit: 1000,
+    // 启用压缩
+    reportCompressedSize: true,
   },
   test: {
     globals: true,

@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest'
-import { renderHook, waitFor } from '@testing-library/react'
+import { renderHook } from '@testing-library/react'
 import { useSecurity } from '../useSecurity'
 
 // Mock wagmi
@@ -12,17 +12,17 @@ vi.mock('wagmi', () => ({
 
 // Mock sessionStorage
 const sessionStorageMock = (() => {
-  let store: Record<string, string> = {}
+  const store = new Map<string, string>()
   return {
-    getItem: (key: string) => store[key] || null,
+    getItem: (key: string) => store.get(key) || null,
     setItem: (key: string, value: string) => {
-      store[key] = value.toString()
+      store.set(key, value.toString())
     },
     removeItem: (key: string) => {
-      delete store[key]
+      store.delete(key)
     },
     clear: () => {
-      store = {}
+      store.clear()
     },
   }
 })()

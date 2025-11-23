@@ -12,7 +12,8 @@
     "search": "搜索",
     "select": "选择",
     "viewDetails": "查看详情",
-    "details": "详情"
+    "details": "详情",
+    "description": "ChatOneSwap 是币安智能链上的去中心化交易所。交换代币、添加流动性和交易，手续费低，支持中文、英文和韩文。"
   },
   "nav": {
     "swap": "交换",

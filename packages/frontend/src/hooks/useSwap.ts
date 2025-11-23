@@ -1,7 +1,8 @@
 import { useState, useCallback, useMemo, useEffect } from 'react'
 import { useAccount, useWriteContract, useWaitForTransactionReceipt } from 'wagmi'
 import { validateTokenAmount, isValidAddress } from '@/utils/security'
-import { ValidationError, NetworkError, logError } from '@/utils/errors'
+import { ValidationError, logError } from '@/utils/errors'
+// NetworkError reserved for future use
 import { CONTRACTS, ROUTER_ABI } from '@/config/contracts'
 import { useChainId } from 'wagmi'
 

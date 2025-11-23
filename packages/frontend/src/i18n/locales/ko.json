@@ -12,7 +12,8 @@
     "search": "검색",
     "select": "선택",
     "viewDetails": "세부 정보 보기",
-    "details": "세부 정보"
+    "details": "세부 정보",
+    "description": "ChatOneSwap는 바이낸스 스마트 체인 기반 탈중앙화 거래소입니다. 토큰 스왑, 유동성 추가 및 거래가 가능하며 낮은 수수료와 중국어, 영어, 한국어를 지원합니다."
   },
   "nav": {
     "swap": "스왑",

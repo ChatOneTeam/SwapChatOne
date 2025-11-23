@@ -1,7 +1,9 @@
 import { lazy, Suspense } from 'react'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import { ErrorBoundary } from './components/ErrorBoundary'
-import { AppKitProvider } from './components/AppKitProvider'
+import { AppKitProvider } from '@chatoneswap/wallet'
+import { getWalletConfig } from './config/wallet'
+import { SEO } from './components/SEO'
 import Layout from './components/Layout'
 
 // Lazy load routes for code splitting
@@ -20,10 +22,13 @@ const LoadingFallback = () => (
 )
 
 function App() {
+  const walletConfig = getWalletConfig()
+  
   return (
     <ErrorBoundary>
-      <AppKitProvider>
+      <AppKitProvider config={walletConfig}>
         <BrowserRouter>
+          <SEO />
           <Layout>
             <Suspense fallback={<LoadingFallback />}>
               <Routes>

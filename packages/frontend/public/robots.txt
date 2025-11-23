@@ -1,0 +1,11 @@
+# robots.txt for ChatOneSwap
+User-agent: *
+Allow: /
+
+# Disallow admin and private areas
+Disallow: /admin/
+Disallow: /api/
+
+# Sitemap
+Sitemap: https://swap.chatone.info/sitemap.xml
+

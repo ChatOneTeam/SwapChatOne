@@ -12,7 +12,8 @@
     "search": "Search",
     "select": "Select",
     "viewDetails": "View Details",
-    "details": "Details"
+    "details": "Details",
+    "description": "ChatOneSwap is a decentralized exchange on Binance Smart Chain. Swap tokens, add liquidity, and trade with low fees. Support for Chinese, English, and Korean."
   },
   "nav": {
     "swap": "Swap",

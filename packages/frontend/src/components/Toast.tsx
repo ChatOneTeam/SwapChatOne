@@ -23,11 +23,19 @@ export default function Toast({ message, type, duration = 5000, onClose }: Toast
     }
   }, [duration, onClose])
 
-  const typeStyles = {
-    success: 'bg-green-50 border-green-200 text-green-800',
-    error: 'bg-red-50 border-red-200 text-red-800',
-    warning: 'bg-yellow-50 border-yellow-200 text-yellow-800',
-    info: 'bg-blue-50 border-blue-200 text-blue-800',
+  function getTypeStyles(toastType: ToastType): string {
+    switch (toastType) {
+      case 'success':
+        return 'bg-green-50 border-green-200 text-green-800'
+      case 'error':
+        return 'bg-red-50 border-red-200 text-red-800'
+      case 'warning':
+        return 'bg-yellow-50 border-yellow-200 text-yellow-800'
+      case 'info':
+        return 'bg-blue-50 border-blue-200 text-blue-800'
+      default:
+        return 'bg-blue-50 border-blue-200 text-blue-800'
+    }
   }
 
   if (!isVisible) {
@@ -36,9 +44,7 @@ export default function Toast({ message, type, duration = 5000, onClose }: Toast
 
   return (
     <div
-      className={`fixed top-4 right-4 z-50 p-4 rounded-lg shadow-lg border transition-opacity duration-300 ${
-        typeStyles[type]
-      }`}
+      className={`fixed top-4 right-4 z-50 p-4 rounded-lg shadow-lg border transition-opacity duration-300 ${getTypeStyles(type)}`}
       role="alert"
     >
       <div className="flex items-center justify-between">
@@ -76,37 +82,5 @@ export function ToastContainer({ toasts, onRemove }: ToastContainerProps) {
       ))}
     </div>
   )
-}
-
-// Toast hook for managing toasts
-export function useToast() {
-  const [toasts, setToasts] = useState<Array<{ id: string; message: string; type: ToastType }>>(
-    []
-  )
-
-  const showToast = (message: string, type: ToastType = 'info') => {
-    const id = Math.random().toString(36).substring(7)
-    setToasts((prev) => [...prev, { id, message, type }])
-    return id
-  }
-
-  const removeToast = (id: string) => {
-    setToasts((prev) => prev.filter((toast) => toast.id !== id))
-  }
-
-  const showSuccess = (message: string) => showToast(message, 'success')
-  const showError = (message: string) => showToast(message, 'error')
-  const showWarning = (message: string) => showToast(message, 'warning')
-  const showInfo = (message: string) => showToast(message, 'info')
-
-  return {
-    toasts,
-    showToast,
-    removeToast,
-    showSuccess,
-    showError,
-    showWarning,
-    showInfo,
-  }
 }
 
