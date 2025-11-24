@@ -19,6 +19,7 @@
     "query-fees": "hardhat run scripts/query-fees.js --network",
     "update-fee-recipient": "hardhat run scripts/update-fee-recipient.js --network",
     "verify": "hardhat verify --network",
+    "export-abi": "node -e \"const fs=require('fs');const r=JSON.parse(fs.readFileSync('artifacts/contracts/core/DexWrapperRouter.sol/DexWrapperRouter.json'));fs.writeFileSync('abis/DexWrapperRouter.json',JSON.stringify(r.abi));\" && node -e \"const fs=require('fs');const r=JSON.parse(fs.readFileSync('artifacts/contracts/core/FeeManager.sol/FeeManager.json'));fs.writeFileSync('abis/FeeManager.json',JSON.stringify(r.abi));\" && node -e \"const fs=require('fs');const r=JSON.parse(fs.readFileSync('artifacts/contracts/adapters/PancakeSwapV3Adapter.sol/PancakeSwapV3Adapter.json'));fs.writeFileSync('abis/PancakeSwapV3Adapter.json',JSON.stringify(r.abi));\" && echo '✅ ABI 已导出到 abis/ 目录（前端可用）'",
     "node": "hardhat node",
     "clean": "hardhat clean",
     "build": "hardhat compile"
